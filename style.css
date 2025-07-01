@@ -1,0 +1,1154 @@
+/* 🌈 THEME VARIABLES */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #031c2b;
+  --input-border: #333;
+  --placeholder-color: #333;
+  --btn-bg: linear-gradient(to right, #009fff, rgb(1 68 176));
+  --box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12), 0 1.5px 4px rgba(0, 0, 0, 0.08);
+  --hover-shadow: 0 4px 24px rgba(0, 0, 0, 0.222),
+    0 1.5px 4px rgba(0, 0, 0, 0.018);
+  --err-bg: red;
+  --err-text: white;
+  --scrollbar: none;
+  --bg-gradient: linear-gradient(90deg, #55799b, #5498d7);
+}
+
+body.dark-mode {
+  --bg-color: #0000005f;
+  --text-color: #f1f1f1;
+  --input-border: #777;
+  --placeholder-color: #bbb;
+  --btn-bg: linear-gradient(to right, #3a7bd5, #3a6073);
+  --box-shadow: 0 4px 24px rgba(255, 255, 255, 0.05),
+    0 1.5px 4px rgba(255, 255, 255, 0.02);
+  --hover-shadow: 0 4px 24px rgba(255, 255, 255, 0.1),
+    0 1.5px 4px rgba(255, 255, 255, 0.03);
+  --err-bg: #ff0000;
+  --err-text: #fff;
+  --bg-gradient: linear-gradient(90deg, #1e2a38, #262d36);
+}
+
+/* 🌍 RESET + BASE STYLES */
+* {
+  /* font-family: "Open Sans", sans-serif; */
+  font-family: "Abril Fatface";
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+::-webkit-scrollbar {
+  display: var(--scrollbar);
+}
+body {
+  background: var(--bg-gradient);
+  color: var(--text-color);
+  will-change: background, color;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 1rem;
+  overflow-y: hidden;
+}
+
+/* ⚡ Container */
+.container {
+  width: 90%;
+  max-width: 800px;
+  min-width: 280px;
+  background-color: var(--bg-color);
+  border-radius: 20px;
+  box-shadow: var(--box-shadow);
+  padding: 2rem 1rem;
+  margin: auto;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  will-change: background-color, color;
+}
+.container:hover {
+  box-shadow: var(--hover-shadow);
+}
+
+/* Shared Transitions */
+.container,
+input,
+.sign-btn,
+.Err {
+  transition: background-color 0.25s ease, color 0.25s ease,
+    border-color 0.25s ease;
+  will-change: background-color, color, border-color;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  padding-left: 10px;
+  gap: 1.5rem;
+}
+/* 🧭 NAVBAR */
+.signup-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80vw;
+  border-radius: 10px;
+  padding: 4px;
+  position: sticky; /* Or sticky if you want scroll behavior */
+  top: 6px;
+  left: 0;
+  right: 0;
+  margin: 10px;
+  background-color: var(--bg-color); /* Optional */
+  z-index: 1000;
+}
+.signup-navbar img {
+  width: 45px;
+  border-radius: 100%;
+  filter: brightness(2);
+}
+.signup-navbar span,
+.signup-i {
+  color: var(--text-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.signup-navbar i {
+  margin-left: 20px;
+}
+.signup-i {
+  margin-top: 5px;
+  font-size: 1.1rem;
+}
+
+/* 🪄 Floating Input */
+.floating-input {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  transform: scaleY(1.1);
+}
+.first {
+  margin: 0px 10px;
+}
+.last {
+  margin: 10px 0;
+}
+.floating-input input {
+  width: 100%;
+  padding: 16px 12px 12px 12px;
+  font-size: 1rem;
+  border: 1.5px solid var(--input-border);
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text-color);
+  outline: none;
+}
+.floating-input input::placeholder {
+  color: transparent;
+}
+.floating-input label {
+  position: absolute;
+  top: 16px;
+  left: 12px;
+  color: var(--placeholder-color);
+  background-color: transparent;
+  padding: 0 5px;
+  font-size: 14px;
+  transition: all 0.25s ease;
+  pointer-events: none;
+}
+.floating-input input:focus + label,
+.floating-input input:not(:placeholder-shown) + label {
+  top: -10px;
+  left: 8px;
+  font-size: 0.75rem;
+  color: var(--placeholder-color);
+}
+
+/* 👁️ Show Password Icon */
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--placeholder-color);
+  z-index: 2;
+}
+.toggle-password:hover {
+  color: var(--text-color);
+}
+
+/* 📝 FORM */
+.sign-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 3rem auto 0 auto;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+.sign-form h1 {
+  color: var(--text-color);
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* 🔤 INPUT */
+.sign-input {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+input {
+  margin: 5px 0;
+  padding: calc(4px + 0.8rem);
+  width: 100%;
+  max-width: 300px;
+  height: 2rem;
+  border-radius: 9px;
+  border: 1.5px solid var(--input-border);
+  background: transparent;
+  color: var(--text-color);
+}
+::placeholder {
+  color: var(--placeholder-color);
+  font-size: 0.9rem;
+}
+
+#forgot {
+  display: inline-block;
+  font-size: 1.1rem;
+  color: #6c63ff; /* soft violet-vibe */
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+#forgot:hover {
+  color: #4038a0;
+  text-decoration: underline;
+  transform: translateY(-2px); /* lil' hover lift */
+}
+
+#forgot:focus {
+  outline: 2px solid #bfbaff; /* accessibility FTW */
+  /* outline-offset: 2px; */
+  border-radius: 4px;
+}
+
+/* 🎯 Button */
+.sign-btn {
+  position: relative;
+  margin: 10px auto 0 auto;
+  width: 70%;
+  font-size: 1rem;
+  height: 2.2rem;
+  background: var(--btn-bg);
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  display: block;
+  overflow: hidden;
+}
+.sign-btn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease-in-out;
+  margin-bottom: 3px;
+}
+button:active {
+  transition: none !important;
+  filter: brightness(0.8);
+  box-shadow: none;
+}
+/* Overlay Panels */
+.container.auth-wrapper {
+  /* transform: scale(0.8); */
+  /* transform: scale(clamp(0.75, 1vw + 0.2, 1)); */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-grow: 0.9;
+  min-height: 600px;
+  flex-direction: row;
+  perspective: 1000px;
+  backface-visibility: hidden;
+  flex-wrap: nowrap;
+}
+@media (max-height: 990px) and (max-width: 500px) {
+  .container.auth-wrapper {
+    max-height: 80vh; /* or 85vh if still too tall */
+    overflow-y: auto;
+  }
+  .container.auth-wrapper {
+    min-height: auto;
+    max-height: 80vh;
+  }
+
+  .sign-form {
+    padding: 1rem 0.5rem;
+    row-gap: 0.8rem;
+  }
+
+  .sign-form h1 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .sign-btn,
+  input {
+    height: 2rem;
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+
+  .h-captcha {
+    transform: scale(0.8);
+  }
+}
+
+@media (max-height: 990px) {
+  .container.auth-wrapper {
+    transform: scale(0.7);
+  }
+}
+@media (max-height: 750px) {
+  .container.auth-wrapper {
+    transform: scale(0.7);
+  }
+}
+.form-container {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.6s ease-in-out, opacity 0.4s ease-in-out;
+  overflow-y: auto;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Default (Login is showing) */
+.sign-in-container {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.sign-up-container {
+  transform: translateY(100%);
+  opacity: 0;
+  z-index: 1;
+}
+
+/* When Sign Up is active */
+.container.auth-wrapper.right-panel-active .sign-in-container {
+  transform: translateY(-100%);
+  opacity: 0;
+  z-index: 1;
+}
+
+.container.auth-wrapper.right-panel-active .sign-up-container {
+  transform: translateY(0%);
+  opacity: 1;
+  z-index: 2;
+}
+
+.overlay-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.6s ease-in-out;
+  z-index: 100;
+  pointer-events: none; /* should be on container, NOT the buttons */
+}
+.container.auth-wrapper.right-panel-active .overlay-container {
+  transform: translateX(-100%);
+}
+.overlay {
+  position: relative;
+  background: var(--btn-bg);
+  width: 200%;
+  height: 100%;
+  left: -100%;
+  display: flex;
+  transition: transform 0.6s ease-in-out;
+  color: #fff;
+}
+.container.auth-wrapper.right-panel-active .overlay {
+  transform: translateX(50%);
+}
+.overlay-panel {
+  width: 390px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+@media (min-width: 887px) {
+  .overlay-panel {
+    width: 410px;
+  }
+}
+
+.container.auth-wrapper.right-panel-active .overlay-left {
+  transform: translateX(0);
+}
+.overlay-right {
+  right: 0;
+  transform: translateX(0);
+}
+.container.auth-wrapper.right-panel-active .overlay-right {
+  transform: translateX(0);
+}
+button.ghost {
+  background-color: transparent;
+  border: 1px solid #fff;
+  margin-top: 1rem;
+  color: #fff;
+  border-radius: 20px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-weight: 550;
+  position: relative;
+  background: linear-gradient(90deg, rgb(87, 87, 164), rgb(47, 102, 190));
+  transition: all 0.2s ease-in;
+}
+button.ghost:hover {
+  transform: scale(1.02);
+  box-shadow: 0px 0px 15px 1px rgb(174, 228, 247);
+}
+button.ghost::after {
+  content: "";
+  background-color: white;
+  width: 0%;
+  height: 2px;
+  display: block;
+  position: absolute;
+  transform: translateX(10%);
+  left: 0;
+  margin: 3px;
+  transition: width 0.2s ease-in;
+}
+button.ghost:hover::after {
+  width: 80%;
+}
+.disable-interactions {
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.7;
+  transition: none !important;
+}
+/* Hover & Touch Effects */
+@media (hover: none) and (pointer: coarse) {
+  .sign-btn:active::after {
+    transform: scaleX(90%);
+  }
+  .sign-btn:active {
+    transform: scale(1.01);
+    box-shadow: 0 0 7px 1px #0b4e78;
+  }
+}
+@media (hover: hover) and (pointer: fine) {
+  .sign-btn:hover::after {
+    transform: scaleX(90%);
+  }
+  .sign-btn:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 7px 1px #0b4e78;
+  }
+}
+
+/* Icons */
+i {
+  transition: all 0.15s ease-in;
+  transform: scale(1.4);
+}
+.fa-sun {
+  color: #ffd54f;
+  margin-right: 10px;
+}
+.fa-sun:hover {
+  filter: brightness(1.05);
+  transform: scale(1.45);
+  cursor: pointer;
+}
+.fa-moon {
+  color: #90caf9;
+  margin-right: 10px;
+}
+.fa-moon:hover {
+  filter: brightness(1.3);
+  transform: scale(1.45);
+  cursor: pointer;
+}
+
+/* Misc Utility */
+.disable {
+  pointer-events: none;
+  filter: brightness(0.7);
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  transition: none !important;
+  color: white !important;
+}
+.none {
+  visibility: hidden;
+}
+.hide {
+  display: none;
+}
+
+/* Captcha */
+.h-captcha {
+  margin: 1.5rem auto 0 auto;
+  display: block;
+  max-width: 300px;
+}
+
+/* Links */
+.sign-input p,
+.sign-input h3 {
+  font-size: 15px;
+  color: var(--text-color);
+  margin-top: 10px;
+  cursor: pointer;
+}
+.sign-input p:hover,
+.sign-input h3:hover {
+  text-decoration: underline;
+}
+
+/* Error */
+.Err {
+  background-color: var(--err-bg, #ffe0e0); /* soft red/pink default */
+  color: var(--err-text, #b00020);
+  padding: 0.4rem 1rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  position: relative;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: fit-content;
+  height: fit-content;
+  max-width: 90%;
+  margin: 10px auto;
+  animation: fadeInSlide 5s ease-in-out forwards;
+  border-left: 5px solid #ff4d4f;
+}
+.Err::before {
+  content: "⚠️";
+  font-size: 1.2rem;
+}
+@keyframes fadeInSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px); /* start slightly above */
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0); /* fade in + slide to position */
+  }
+  85% {
+    opacity: 0.8; /* start fading out */
+  }
+  100% {
+    opacity: 0; /* disappear completely */
+  }
+}
+.mainError {
+  color: red;
+  font-size: 22px;
+  position: absolute;
+  /* top: clamp(10vh, 18px, 18vh); */
+  /* left: calc(50vw - 22px); */
+}
+.shakeInput {
+  /* outline: red; */
+  border: solid 3px rgb(255, 37, 37) !important;
+  animation: shakeInput 0.5s 2 ease-in;
+  transition: all 0.2s ease-in-out;
+}
+.redLabel {
+  color: rgb(255, 4, 4) !important;
+  transition: color 0.2s ease-in;
+}
+@keyframes shakeInput {
+  0% {
+    transform: translateX(1.5px);
+    transform: translateY(0.8px);
+  }
+  50% {
+    transform: translateX(-1.5px);
+    transform: translateY(0.8px);
+  }
+  100% {
+    transform: translate(0px);
+    transform: translateY(0px);
+  }
+}
+/* Loading */
+.loading {
+  min-width: 100%;
+  min-height: 110vh;
+  background-color: rgba(107, 107, 107, 0.128);
+  backdrop-filter: blur(4px);
+  position: absolute;
+  inset: 0;
+  z-index: 9999;
+}
+.loading::after {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  margin-top: 5px;
+  border-radius: 10px;
+  background: linear-gradient(to right, #2020d8, #4545df, #4f81eb, #2882eb);
+  background-size: 400% 100%;
+  animation: loading 2s ease-in infinite;
+}
+.h-captcha {
+  transform: scale(0.9);
+}
+@keyframes loading {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+@media (min-width: 731px) and (max-height: 1000px) {
+  .container.auth-wrapper {
+    flex-direction: row !important;
+    overflow: hidden;
+    /* transform: scale(0.8); */
+  }
+
+  .form-container {
+    width: 50% !important;
+    left: 0 !important;
+    top: 0 !important;
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .sign-in-container {
+    transform: translateX(0) !important;
+    z-index: 2 !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .sign-up-container {
+    transform: translateX(100%) !important;
+    z-index: 1 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .container.auth-wrapper.right-panel-active .sign-in-container {
+    /* Keep it in place */
+    transform: translateX(0%) !important;
+    z-index: 1 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .container.auth-wrapper.right-panel-active .sign-up-container {
+    transform: translateX(100%) !important;
+    z-index: 2 !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  /* Bring the overlay back in */
+  .overlay-container,
+  .overlay {
+    display: flex !important;
+    pointer-events: auto;
+  }
+
+  /* Hide any mobile-only toggles on desktop */
+  .mobile-toggle {
+    display: none !important;
+  }
+}
+.form-container {
+  pointer-events: none; /* disable clicks on the blank panel */
+}
+.sign-in-container,
+.sign-up-container {
+  pointer-events: auto; /* re-enable clicks inside each panel */
+}
+/* 🛠 iPhone 12+ screen fix */
+@media screen and (min-device-width: 390px) and (max-device-width: 430px) and (orientation: portrait) {
+  .container.auth-wrapper {
+    min-height: 95vh !important;
+    transform: scale(0.95);
+    padding-bottom: 3rem;
+  }
+
+  .sign-form {
+    margin-top: 0.5rem;
+    padding: 1rem 0.75rem;
+    row-gap: 0.8rem;
+  }
+
+  .mobile-toggle {
+    display: flex !important;
+  }
+}
+
+/* 🛠 iPads & large tablets (landscape & portrait) */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .container.auth-wrapper {
+    transform: scale(0.8);
+    padding: 1rem;
+    overflow-y: auto;
+    max-height: 90vh;
+  }
+
+  .sign-form {
+    padding: 1.5rem 1rem;
+    row-gap: 1rem;
+  }
+
+  .mobile-toggle {
+    display: flex !important;
+  }
+}
+
+/* ✅ Ensure .mobile-toggle is visible and on top always */
+.mobile-toggle {
+  display: flex !important;
+  z-index: 1002 !important;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(50, 122, 254, 0.34);
+  backdrop-filter: blur(20px);
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  box-shadow: var(--box-shadow);
+  gap: 1rem;
+}
+
+.mobile-toggle button {
+  /* background: rgba(0, 106, 255, 0.507); */
+  border: 1px solid white;
+  backdrop-filter: blur(10px);
+  border: none;
+  width: 6rem;
+  padding: 0.8rem 1rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.mobile-toggle button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Optional - Prevent weird clipping */
+body {
+  overflow-y: auto !important;
+}
+
+@media (min-width: 731px) {
+  .container.auth-wrapper .sign-in-container {
+    transform: translateX(0%) !important;
+    opacity: 1 !important;
+    z-index: 2 !important;
+    pointer-events: auto !important;
+  }
+
+  .container.auth-wrapper .sign-up-container {
+    transform: translateX(100%) !important;
+    opacity: 0 !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+  }
+
+  .container.auth-wrapper.right-panel-active .sign-in-container {
+    /* Keep it in place */
+    transform: translateX(0%) !important;
+    z-index: 1 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .container.auth-wrapper.right-panel-active .sign-up-container {
+    transform: translateX(100%) !important;
+    opacity: 1 !important;
+    z-index: 2 !important;
+    pointer-events: auto !important;
+  }
+  .form-container {
+    width: 50% !important;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 730px) {
+  .container.auth-wrapper {
+    flex-direction: column !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    position: relative !important;
+  }
+
+  .container.auth-wrapper .form-container {
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    top: 0;
+    left: 0;
+    transition: transform 0.6s ease-in-out !important;
+    overflow-y: auto !important;
+  }
+
+  .container.auth-wrapper .sign-in-container {
+    transform: translateY(0%) !important;
+    z-index: 2 !important;
+  }
+
+  .container.auth-wrapper .sign-up-container {
+    transform: translateY(100%) !important;
+    z-index: 1 !important;
+  }
+
+  .container.auth-wrapper.right-panel-active .sign-in-container {
+    transform: translateY(-100%) !important;
+    z-index: 1 !important;
+    opacity: 0 !important;
+  }
+
+  .container.auth-wrapper.right-panel-active .sign-up-container {
+    transform: translateY(0%) !important;
+    z-index: 2 !important;
+    opacity: 1 !important;
+  }
+
+  .overlay-container,
+  .overlay {
+    display: none !important;
+  }
+  .mobile-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--btn-bg);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    box-shadow: var(--box-shadow);
+    display: flex;
+    gap: 1rem;
+    z-index: 1001;
+  }
+
+  .mobile-toggle button {
+    background: white;
+    border: none;
+    padding: 0.4rem 1rem;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .mobile-toggle button:hover {
+    background: #eee;
+  }
+}
+@media (min-width: 731px) {
+  /* Bring the overlay ABOVE the forms */
+  .overlay-container {
+    z-index: 3 !important; /* sit on top of the .form-container (which is z-index:2) */
+    pointer-events: auto !important; /* allow clicks */
+  }
+
+  /* Panels themselves must also receive pointer events */
+  .overlay-panel {
+    pointer-events: auto !important;
+  }
+
+  /* And just to be sure, make sure forms themselves stay underneath */
+  .form-container {
+    z-index: 1 !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .container.auth-wrapper {
+    transform: scale(0.8);
+  }
+}
+/* 🎯 iPhone 8+ & similar small phones */
+@media screen and (max-width: 430px) {
+  .container.auth-wrapper {
+    min-height: auto !important;
+    max-height: 90vh !important;
+    height: auto !important;
+    overflow-y: auto !important;
+    transform: scale(0.95); /* keep your scale if you like */
+  }
+
+  .sign-form {
+    max-height: 85vh !important;
+    overflow-y: auto !important;
+    padding: 1rem 0.75rem;
+  }
+  /* 🔪 Extra trim for really small phones */
+
+  .container.auth-wrapper {
+    /* shrink the wrapper even more */
+    max-height: 80vh !important;
+    transform: scale(0.8) !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  .sign-form {
+    /* give the form less vertical real estate */
+    max-height: 75vh !important;
+    padding: 0.8rem 0.5rem !important;
+    row-gap: 0.6rem !important;
+  }
+}
+
+@media (max-width: 730px) {
+  .container.auth-wrapper {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  .form-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s ease-in-out;
+    z-index: 1;
+    overflow-y: auto;
+  }
+
+  .sign-in-container {
+    top: 0;
+    left: 0;
+    transform: translateY(0);
+    z-index: 2;
+  }
+
+  .sign-up-container {
+    top: 100%;
+    left: 0;
+    transform: translateY(-100%);
+    z-index: 1;
+  }
+
+  .container.auth-wrapper.right-panel-active .sign-in-container {
+    transform: translateY(-100%);
+    opacity: 0;
+    z-index: 1;
+  }
+
+  .container.auth-wrapper.right-panel-active .sign-up-container {
+    transform: translateY(-100%);
+    opacity: 1;
+    z-index: 2;
+  }
+  @media (max-width: 500px) {
+    .sign-form {
+      max-height: 90vh;
+      overflow-y: auto;
+      margin-top: 1rem;
+      padding: 1rem 0.5rem;
+      row-gap: 0.8rem;
+      transform: scale(0.95);
+    }
+
+    .sign-form h1 {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .sign-input {
+      margin-top: 1rem;
+    }
+
+    input,
+    .sign-btn {
+      height: 2.2rem;
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+
+    .h-captcha {
+      transform: scale(0.85);
+      margin: auto;
+    }
+  }
+
+  /* 🧼 Kill default overlay behavior */
+  @media (max-width: 730px) {
+    .overlay-container {
+      position: absolute;
+      width: 100%;
+      height: 50%;
+      top: 50%;
+      left: 0;
+      transition: transform 0.6s ease-in-out;
+      z-index: 100;
+    }
+
+    .overlay {
+      position: relative;
+      height: 200%;
+      width: 100%;
+      top: -100%;
+      display: flex;
+      flex-direction: column;
+      background: var(--btn-bg);
+      transition: transform 0.6s ease-in-out;
+      color: #fff;
+    }
+
+    .overlay-panel {
+      height: 50%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .overlay-left {
+      transform: translateY(-20%);
+    }
+
+    .overlay-right {
+      transform: translateY(0%);
+    }
+
+    .container.auth-wrapper.right-panel-active .overlay {
+      transform: translateY(50%);
+    }
+
+    .container.auth-wrapper.right-panel-active .overlay-left {
+      transform: translateY(0%);
+    }
+
+    .container.auth-wrapper.right-panel-active .overlay-right {
+      transform: translateY(20%);
+    }
+  }
+
+  /* OPTIONAL: Add a custom top-down panel if you want, otherwise skip this block */
+  .mobile-overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: var(--btn-bg);
+    color: #fff;
+    padding: 2rem;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    transform: translateY(100%);
+    transition: transform 0.6s ease-in-out;
+  }
+
+  .container.auth-wrapper.right-panel-active .mobile-overlay {
+    transform: translateY(0%);
+  }
+
+  .container {
+    width: 95%;
+    padding: 1rem;
+    margin-top: 1rem;
+    transform: scale(1);
+  }
+
+  .sign-form h1 {
+    font-size: 1.3rem;
+  }
+
+  .sign-btn,
+  input {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .h-captcha {
+    transform: scale(0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    margin: auto;
+  }
+}
+
+/* ♿ Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

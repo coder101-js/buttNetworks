@@ -1,0 +1,27 @@
+# Node modules
+node_modules/
+
+# Logs
+*.log
+logs/
+
+# Env files
+.env
+.env.*
+
+# Build files
+dist/
+build/
+
+# System junk
+.DS_Store
+Thumbs.db
+
+# IDE stuff
+.vscode/
+.idea/
+
+a.js
+Butt Network -.zip
+.zip
+.history

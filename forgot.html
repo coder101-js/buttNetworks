@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forgot Password</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet" />
+    <script src="config.js"></script>
+    <style>
+        :root {
+            --primary-color: #4f9cf9;
+            --bg-color: #121212;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --border-glow: rgba(255, 255, 255, 0.15);
+            --text-color: #ffffff;
+            --subtext-color: #a0a0a0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: radial-gradient(circle at top left, #1f1f1f, #0d0d0d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color);
+            animation: fadeInUp 0.2s ease-in forwards;
+        }
+
+        .container {
+            backdrop-filter: blur(20px);
+            background: var(--glass-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            padding: 2.5rem 2rem;
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+        }
+
+        .container h2 {
+            margin-bottom: 0.5rem;
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .container p {
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--subtext-color);
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 1.75rem;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 14px 12px;
+            font-size: 1rem;
+            color: var(--text-color);
+            background: transparent;
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            outline: none;
+            backdrop-filter: blur(4px);
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="email"]:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 8px rgba(79, 156, 249, 0.5);
+        }
+
+        input[type="email"]:focus+label,
+        input[type="email"]:not(:placeholder-shown)+label {
+            transform: translateY(-30px);
+            font-size: 0.75rem;
+            color: var(--primary-color);
+        }
+
+        label {
+            position: absolute;
+            left: 12px;
+            top: 14px;
+            background: transparent;
+            padding: 0 4px;
+            color: var(--subtext-color);
+            font-size: 1rem;
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            box-shadow: 0 0 10px rgba(79, 156, 249, 0.3);
+            animation: fadeInUp 0.44s ease-out forwards;
+        }
+
+        button:hover {
+            background-color: #357ae8;
+            box-shadow: 0 0 14px rgba(79, 156, 249, 0.5);
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pop {
+            animation: fadeInUp 0.44s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Forgot password?</h2>
+        <p>Enter your email to receive a reset link</p>
+        <form>
+            <div id="message"></div>
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder=" " required />
+                <label for="email">Email address</label>
+            </div>
+            <button type="submit">Send reset link</button>
+        </form>
+        <a href="index.html" class="back-link">&larr; Back to login</a>
+    </div>
+</body>
+<script>
+    const form = document.querySelector("form");
+    const emailInput = document.getElementById("email");
+    const messageDiv = document.getElementById("message");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const email = emailInput.value.trim();
+
+        if (email === "") {
+            showMessage("Please enter your email address.", "error");
+            return;
+        }
+
+        const sendResetMail = async () => {
+            try {
+                const body = {
+                    email,
+                    type: 'password/reset/mail'
+                }
+                const response = await fetch(`${CONFIG.API_URL}/gateway`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(body)
+                });
+            } catch (error) {
+                showMessage("Network error. Please try again.", "error");
+                return;
+            }
+        };
+        sendResetMail()
+        setTimeout(() => {
+            showMessage(
+                "If an account with that email exists, you'll receive a reset link shortly. Check your inbox",
+                "success"
+            );
+            emailInput.value = "";
+        }, 550);
+    });
+
+    function showMessage(msg, type) {
+        messageDiv.textContent = msg;
+        messageDiv.classList.add('pop');
+        messageDiv.style.color = type === "error" ? "#ff7070" : "#4f9cf9";
+        messageDiv.style.opacity = 0;
+        messageDiv.style.lineHeight = '1.2rem';
+        messageDiv.style.transition = "opacity 0.4s ease";
+        setTimeout(() => {
+            messageDiv.style.opacity = 1;
+        }, 100);
+    }
+</script>
+
+</html>
