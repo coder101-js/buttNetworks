@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Verification</title>
+    <link rel="shortcut icon" href="butt.webp" type="image/x-icon">
     <script src="config.js"></script>
     <style>
         @media (max-width: 480px) {
@@ -330,14 +331,14 @@
         </div>
     </div>
     <script>
-        
+
         const query = new URLSearchParams(window.location.search);
         const email = query.get('email');
         (() => {
 
             if (!email) {
                 alert("You must sign up first to access this page.");
-                // window.location.href = `${CONFIG.LOGIN_URL}`;
+                window.location.href = `${CONFIG.LOGIN_URL}`;
             }
             else {
                 const emailDiv = document.querySelector('.email')
