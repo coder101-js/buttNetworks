@@ -135,13 +135,23 @@ document.querySelectorAll("form input").forEach((input) => {
     }
   });
 });
-function showError(message) {
+function showError(message, duration = 4000) {
   Err.classList.remove("none");
   Err.style.opacity = 1;
   Err.style.animation = "none";
-  void Err.offsetHeight;
-  Err.style.animation = "fadeInSlide 2s ease-in-out forwards";
+  void Err.offsetHeight; // Force reflow to restart animation
+  Err.style.animation = "fadeInSlide 0.5s ease-in-out forwards";
   Err.innerText = message;
+
+  // Clear any previous hide timeout
+  if (Err.hideTimeout) clearTimeout(Err.hideTimeout);
+
+  // Set a new timeout to hide after `duration`
+  Err.hideTimeout = setTimeout(() => {
+    Err.style.opacity = 0;
+    Err.classList.add("none");
+    Err.innerText = "";
+  }, duration);
 }
 
 document.querySelectorAll("form").forEach((formEl) => {
@@ -195,7 +205,7 @@ document.querySelectorAll("form").forEach((formEl) => {
       hcaptcha.reset();
       if (result.err) {
         console.log(Err);
-        showError(result.err)
+        showError(result.err,8000)
         switch (type) {
           case "signup":
             Array.from(signUpInput).forEach((elm) => {
