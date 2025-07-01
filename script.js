@@ -193,6 +193,7 @@ document.querySelectorAll("form").forEach((formEl) => {
       if (result.err) {
         console.log(Err);
         Err.classList.remove("none");
+        Err.style.opacity=1
         Err.innerText = result.err;
         console.log(Err);
         switch (type) {
