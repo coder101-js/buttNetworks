@@ -144,7 +144,7 @@ function showError(message, duration = 4000, sticky = false) {
   Err.style.opacity = 1;
   Err.style.animation = "none";
   void Err.offsetHeight;
-  Err.style.animation = "fadeInSlide 0.5s ease-in-out forwards";
+  Err.style.animation = `fadeInSlide ${duration}ms ease-in-out forwards`;
   Err.innerText = message;
 
   if (Err.hideTimeout) clearTimeout(Err.hideTimeout);
