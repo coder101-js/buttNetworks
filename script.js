@@ -192,8 +192,8 @@ document.querySelectorAll("form").forEach((formEl) => {
       hcaptcha.reset();
       if (result.err) {
         console.log(Err);
+        Err.style.opacity='1'
         Err.classList.remove("none");
-        Err.style.opacity=1
         Err.innerText = result.err;
         console.log(Err);
         switch (type) {
