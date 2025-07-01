@@ -102,7 +102,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 buttons.forEach((btn) => {
   btn?.addEventListener("click", (e) => {
-    if (captchaToken==='') {
+    if (captchaToken === "") {
       e.preventDefault();
       Err.classList.remove("none");
       Err.innerText = "Solve the captcha first";
@@ -113,7 +113,6 @@ buttons.forEach((btn) => {
     }
   });
 });
-
 
 function onCaptchaSolved(token) {
   captchaToken = token;
@@ -192,6 +191,8 @@ document.querySelectorAll("form").forEach((formEl) => {
       console.log(result);
       hcaptcha.reset();
       if (result.err) {
+        Err.classList.remove("none");
+        Err.innerText = result.err;
         switch (type) {
           case "signup":
             Array.from(signUpInput).forEach((elm) => {
@@ -213,9 +214,7 @@ document.querySelectorAll("form").forEach((formEl) => {
       if (res.ok && result.redirectTo) {
         loading.classList.remove("hide");
         loading.classList.add("loading");
-        setTimeout(() => {
-          window.location.assign(result.redirectTo); // smoother than `href`
-        }, 300);
+        window.location.assign(result.redirectTo);
       }
     } catch (err) {
       hcaptcha.reset();
