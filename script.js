@@ -104,7 +104,7 @@ buttons.forEach((btn) => {
   btn?.addEventListener("click", (e) => {
     if (captchaToken === "") {
       e.preventDefault();
-      showError('Solve the captcha first')
+      showError("Solve the captcha first");
     }
   });
 });
@@ -135,24 +135,37 @@ document.querySelectorAll("form input").forEach((input) => {
     }
   });
 });
-function showError(message, duration = 4000) {
+let isStickyError = false;
+
+function showError(message, duration = 4000, sticky = false) {
+  isStickyError = sticky;
+
   Err.classList.remove("none");
   Err.style.opacity = 1;
   Err.style.animation = "none";
-  void Err.offsetHeight; // Force reflow to restart animation
+  void Err.offsetHeight;
   Err.style.animation = "fadeInSlide 0.5s ease-in-out forwards";
   Err.innerText = message;
 
-  // Clear any previous hide timeout
   if (Err.hideTimeout) clearTimeout(Err.hideTimeout);
 
-  // Set a new timeout to hide after `duration`
-  Err.hideTimeout = setTimeout(() => {
-    Err.style.opacity = 0;
-    Err.classList.add("none");
-    Err.innerText = "";
-  }, duration);
+  if (!sticky) {
+    Err.hideTimeout = setTimeout(() => {
+      Err.style.opacity = 0;
+      Err.classList.add("none");
+      Err.innerText = "";
+    }, duration);
+  }
 }
+document.querySelectorAll("form input").forEach((input) => {
+  input.addEventListener("input", () => {
+    if (!isStickyError) {
+      Err.classList.add("none");
+      Err.innerText = "";
+      Err.style.opacity = 0;
+    }
+  });
+});
 
 document.querySelectorAll("form").forEach((formEl) => {
   formEl.addEventListener("submit", async (e) => {
@@ -167,14 +180,12 @@ document.querySelectorAll("form").forEach((formEl) => {
     const btn = formEl.querySelector("button[type='submit']");
 
     if (!email || !password) {
-      Err.classList.remove("none");
-      Err.innerText = "Email and Password can't be empty!";
+      showError("Fill email and password", 3000);
       return;
     }
 
     if (!token || btn?.classList.contains("disable")) {
-      Err.classList.remove("none");
-      Err.innerText = "Solve the captcha first!";
+      showError("Solve the captcha first!", 3000);
       return;
     }
 
@@ -201,11 +212,9 @@ document.querySelectorAll("form").forEach((formEl) => {
       });
 
       const result = await res.json();
-      console.log(result);
       hcaptcha.reset();
       if (result.err) {
-        console.log(Err);
-        showError(result.err,8000)
+        showError(result.err, 8000,true);
         switch (type) {
           case "signup":
             Array.from(signUpInput).forEach((elm) => {
