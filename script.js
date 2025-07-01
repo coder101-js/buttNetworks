@@ -191,10 +191,10 @@ document.querySelectorAll("form").forEach((formEl) => {
       console.log(result);
       hcaptcha.reset();
       if (result.err) {
-        console.log(Err)
+        console.log(Err);
         Err.classList.remove("none");
         Err.innerText = result.err;
-        console.log(Err)
+        console.log(Err);
         switch (type) {
           case "signup":
             Array.from(signUpInput).forEach((elm) => {
