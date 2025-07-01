@@ -111,6 +111,9 @@ input,
   background-color: var(--bg-color); /* Optional */
   z-index: 1000;
 }
+img {
+  height: 40px;
+}
 .signup-navbar img {
   width: 45px;
   border-radius: 100%;
