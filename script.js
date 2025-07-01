@@ -104,12 +104,7 @@ buttons.forEach((btn) => {
   btn?.addEventListener("click", (e) => {
     if (captchaToken === "") {
       e.preventDefault();
-      Err.classList.remove("none");
-      Err.innerText = "Solve the captcha first";
-
-      Err.style.animation = "none";
-      void Err.offsetHeight;
-      Err.style.animation = "fadeInSlide 2s ease-in-out forwards";
+      showError('Solve the captcha first')
     }
   });
 });
@@ -140,6 +135,14 @@ document.querySelectorAll("form input").forEach((input) => {
     }
   });
 });
+function showError(message) {
+  Err.classList.remove("none");
+  Err.style.opacity = 1;
+  Err.style.animation = "none";
+  void Err.offsetHeight;
+  Err.style.animation = "fadeInSlide 2s ease-in-out forwards";
+  Err.innerText = message;
+}
 
 document.querySelectorAll("form").forEach((formEl) => {
   formEl.addEventListener("submit", async (e) => {
@@ -192,10 +195,7 @@ document.querySelectorAll("form").forEach((formEl) => {
       hcaptcha.reset();
       if (result.err) {
         console.log(Err);
-        Err.style.opacity='1'
-        Err.classList.remove("none");
-        Err.innerText = result.err;
-        console.log(Err);
+        showError(result.err)
         switch (type) {
           case "signup":
             Array.from(signUpInput).forEach((elm) => {
