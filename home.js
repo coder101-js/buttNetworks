@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 🧭 Smooth Scrolling Utility
   function smoothScrollTo(id) {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) el.scrollIntoView({ behavior: "smooth" ,block:'start'});
   }
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     const target = link.getAttribute("href").slice(1);
