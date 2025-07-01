@@ -9,7 +9,7 @@ const authWrapper = document.querySelector(".container.auth-wrapper");
 // 📦 Loading + Error Elements
 const loading = document.getElementById("loading");
 const Err = document.getElementById("Err");
-Err.classList.add('none')
+
 
 // 🔘 Form Toggle Buttons
 const signUpBtn = document.getElementById("signUp");
