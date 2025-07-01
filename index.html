@@ -17,7 +17,7 @@
   <!-- 🧩 Open Graph (Facebook, LinkedIn, etc.) -->
   <meta property="og:title" content="Butt Networks || Login/Sign Up" />
   <meta property="og:description" content="A responsive and modern auth interface for fast and secure user access." />
-  <meta property="og:image" content="butt.webp" /> <!-- Replace with full image URL -->
+  <meta property="og:image" content="https://buttnetworks.com/butt.webp" />
   <meta property="og:url" content="https://yourdomain.com" />
   <meta property="og:type" content="website" />
 
@@ -26,8 +26,9 @@
   <meta name="twitter:description" content="A sleek, fast, mobile-first login & signup system by Butt Networks." />
 
   <!-- 🚀 Performance Boost -->
-  <link rel="preload" as="image" href="butt.webp" fetchpriority="high" />
-  <link rel="shortcut icon" href="butt.png" type="image/png" />
+
+  <link rel="icon" href="butt.png" type="image/webp" fetchpriority="high"/>
+
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
 
@@ -57,7 +58,7 @@
   </div>
   <!-- 🔁 Auth Panel -->
   <div class="container auth-wrapper" id="container">
-    
+
     <!-- ✍️ Sign Up -->
     <div class="form-container sign-up-container">
       <form class="sign-form">
@@ -100,7 +101,7 @@
         <button type="submit" class="sign-btn">Login</button>
       </form>
     </div>
-    
+
     <!-- 🧭 Overlay Panels -->
     <div class="overlay-container">
       <div class="overlay">
@@ -123,8 +124,8 @@
       <button id="mobileLogin">Login</button>
       <button id="mobileSignup">Sign Up</button>
     </div>
-    
+
     <script src="script.js" defer></script>
-  </body>
+</body>
 
 </html>
