@@ -65,12 +65,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-const submitContactForm = async () => {
+const submitContactForm = async (e) => {
   const name = document.getElementById('Name').value.trim();
   const email = document.getElementById('Email').value.trim();
   const phone = document.getElementById('Phone').value.trim();
   const message = document.getElementById('Message').value.trim();
-
+  e.preventDefault()
   // basic validation — don’t ghost required fields 😤
   if (!name || !email || !phone || !message) {
     return false;
