@@ -714,11 +714,6 @@ progress{
   }
 
 
-  .contact-form {
-    width: 100%;
-    margin: 10px 0 0;
-  }
-
   input,
   textarea,
   .submit {
@@ -803,18 +798,6 @@ progress{
     margin-top: 20px;
   }
 
-  /* .contact-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 55px;
-    font-size: 30px;
-  } */
-
-  /* .contact-form {
-    width: 100%;
-    margin: 10px 0px 0;
-  } */
 
   input {
     width: 100%;
