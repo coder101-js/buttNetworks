@@ -1,4 +1,4 @@
-const { type } = require("express/lib/response");
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const sun = document.getElementById("Sun");
