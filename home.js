@@ -65,10 +65,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 const submitContactForm = async () => {
+  const fields = ["Name", "Email", "Phone", "Message"]; // ✅ define this early
+
   const name = document.getElementById("Name").value.trim();
   const email = document.getElementById("Email").value.trim();
   const phone = document.getElementById("Phone").value.trim();
   const message = document.getElementById("Message").value.trim();
+
   // basic validation — don’t ghost required fields 😤
   if (!name || !email || !phone || !message) {
     return false;
@@ -79,6 +82,7 @@ const submitContactForm = async () => {
     data,
     type: "contact/form",
   };
+
   try {
     const res = await fetch(`${CONFIG.API_URL}/gateway`, {
       method: "POST",
@@ -91,38 +95,45 @@ const submitContactForm = async () => {
     const response = await res.json();
 
     if (res.ok && response.success) {
+      // ✅ clear inputs
       fields.forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.value = "";
       });
+
       const msg = document.getElementById("contactStatus");
       msg.classList.remove("none");
       msg.classList.add("show");
-      msg.textContent = "Message send Successfully";
+      msg.textContent = "Message sent successfully! ✅";
+
       setTimeout(() => {
         msg.classList.add("none");
         msg.classList.remove("show");
         msg.textContent = "";
-      }, 7 * 1000);
+      }, 7000);
     }
   } catch (error) {
-    const fields = ["Name", "Email", "Phone", "Message"];
+    // 🛑 Something broke
     fields.forEach((id) => {
       const el = document.getElementById(id);
       if (el) el.value = "";
     });
+
     const msg = document.getElementById("contactStatus");
     msg.classList.remove("none");
     msg.classList.add("show-err");
-    msg.textContent = "Error while sending Form";
+    msg.textContent = "Error while sending form 😢";
+
     setTimeout(() => {
       msg.classList.add("none");
       msg.classList.remove("show-err");
       msg.textContent = "";
-    }, 7 * 1000);
+    }, 7000);
+
     console.error("🚨 Error:", error);
   }
 };
+
 
 document.querySelector("form").addEventListener("submit", async (e) => {
   e.preventDefault(); // 👈 stops the form from reloading the page
