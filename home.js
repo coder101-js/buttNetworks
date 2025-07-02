@@ -104,7 +104,6 @@ const submitContactForm = async () => {
         msg.classList.remove("show");
         msg.textContent = "";
       }, 7 * 1000);
-    } else {
     }
   } catch (error) {
     const fields = ["Name", "Email", "Phone", "Message"];
