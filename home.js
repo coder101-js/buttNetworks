@@ -72,7 +72,9 @@ const submitContactForm = async () => {
   const message = document.getElementById('Message').value.trim();
 
   // basic validation — don’t ghost required fields 😤
-
+  if (!name || !email || !phone || !message) {
+    return false;
+  }
 
   const data = { name, email, phone, message };
 
