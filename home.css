@@ -650,7 +650,7 @@ img{
   display: block;
   margin: auto;
 }
-.show{
+.show-err{
   color: white;
   background-color: rgb(237, 37, 37);
   padding: 3px;
