@@ -378,8 +378,8 @@
                     body: JSON.stringify({ email: email, type: 'otp/resend' })
                 })
                     .then(res => res.json())
-                    .then(data => {
-                        if (data.success) {
+                    .then(result => {
+                        if (result.success) {
                             alert('📨 Code resent successfully!');
                         } else {
                             alert('⚠️ Failed to resend code. Try again later.');
@@ -485,23 +485,39 @@
                             credentials: "include",
                             body: JSON.stringify({ otp: getCode(), type: 'otp/auth', email: email })
                         })
-                            .then(response => response.json())
-                            .then(data => {
+                            .then(async response => {
+                                const result = await response.json(); // still parse body
+                                return {
+                                    statusCode: response.status,
+                                    ok: response.ok,
+                                    ...result
+                                };
+                            })
+                            .then(result => {
                                 hideLoading();
-                                console.log(data)
-                                if (data.redirectTo) {
-                                    const msg = document.getElementById('msg')
-                                    msg.style.color = 'white'
-                                    msg.style.backgroundColor = 'red'
-                                    msg.innerText = data.msg + ' ' + 'you will get redirect to login page in 3s'
+                                console.log(result);
+
+                                if (result.redirectTo && result.statusCode !== 200) {
+                                    const msg = document.getElementById('msg');
+                                    msg.style.color = 'white';
+                                    msg.style.backgroundColor = 'red';
+                                    msg.innerText = result.msg + ' 🔁 Redirecting to login in 3s...';
                                     setTimeout(() => {
-                                        window.location.assign(data.redirectTo);
-                                    }, 3 * 1000);
+                                        window.location.assign(result.redirectTo);
+                                    }, 3000);
+                                } else if (result.redirectTo && result.statusCode === 200) {
+                                    const msg = document.getElementById('msg');
+                                    msg.style.color = 'white';
+                                    msg.style.backgroundColor = 'lightgreen';
+                                    msg.innerText = '✅ Verified successfully';
+                                    setTimeout(() => {
+                                        window.location.assign(result.redirectTo);
+                                    }, 300);
                                 }
-                                else if (data.auth) {
+                                else if (result.auth) {
                                     setTimeout(() => {
-                                        window.location.assign(data.redirectTo);
-                                    },  400);
+                                        window.location.assign(result.redirectTo);
+                                    }, 400);
                                 } else {
                                     alert('❌ Invalid code. Try again.');
                                 }
@@ -538,9 +554,10 @@
                     });
                     if (digits.length === inputs.length) {
                         inputs[inputs.length - 1].focus();
-                        inputs[inputs.length - 1].dispatchEvent(new Event('input')); // Auto verify
+                        inputs[inputs.length - 1].dispatchEvent(new Event('input'));
                     }
                 });
+
 
             });
         })();
