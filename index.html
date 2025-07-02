@@ -45,9 +45,21 @@
   <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 
   <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+<script>eruda.init();</script>
 </head>
 
 <body>
+  <div id="logBox" style="position:fixed;bottom:10px;left:10px;background:#000;color:#0f0;padding:10px;z-index:9999;max-width:300px;max-height:200px;overflow:auto;font-family:monospace;"></div>
+
+<script>
+  const logDiv = document.getElementById('logBox');
+  function log(msg) {
+    console.log(msg);
+    logDiv.innerHTML += msg + "<br>";
+  }
+</script>
+
   <div id="loading" class="hide"></div>
   <div class="signup-navbar">
     <div class="brand">
