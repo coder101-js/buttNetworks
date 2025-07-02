@@ -55,25 +55,21 @@ window.addEventListener("DOMContentLoaded", () => {
 
 let captchaMap = {};
 
-        window.addEventListener("DOMContentLoaded", () => {
-          const widgets = hcaptcha.getWidgets();
+window.addEventListener("DOMContentLoaded", () => {
+  const captchaElements = document.querySelectorAll(".h-captcha");
 
-          // If only 1 widget exists, it’s probably for the visible form (likely login)
-          if (widgets.length === 1) {
-            captchaMap = {
-              login: widgets[0],
-              signup: widgets[0], // fallback: share the same one
-            };
-          } else {
-            // If both are visible and auto-rendered
-            captchaMap = {
-              signup: widgets[0],
-              login: widgets[1],
-            };
-          }
+  captchaMap.signup = hcaptcha.render(captchaElements[0], {
+    sitekey: "fe6efd1a-9376-4e3a-8380-4b74578ed896",
+    callback: onCaptchaSolved,
+  });
 
-          console.log("🔍 Captcha Map:", captchaMap);
-        });
+  captchaMap.login = hcaptcha.render(captchaElements[1], {
+    sitekey: "fe6efd1a-9376-4e3a-8380-4b74578ed896",
+    callback: onCaptchaSolved,
+  });
+
+  console.log("✅ Captcha widgets:", captchaMap);
+});
 
 // ☀️ Theme Switchers
 sun?.addEventListener("click", () => {
@@ -262,7 +258,12 @@ document.querySelectorAll("form").forEach((formEl) => {
         window.location.assign(result.redirectTo);
       }
     } catch (err) {
-      hcaptcha.reset(0);
+      const activeForm = authWrapper.classList.contains("right-panel-active")
+        ? "signup"
+        : "login";
+      if (captchaMap[activeForm] !== undefined) {
+        hcaptcha.reset(captchaMap[activeForm]);
+      }
       console.log(err);
       console.error("❌ Form Error:", err);
     } finally {
