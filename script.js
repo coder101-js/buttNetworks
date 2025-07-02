@@ -27,7 +27,6 @@ let captchaToken = "";
 forgotLink.addEventListener("click", (e) => {
   window.location.assign();
 });
-
 // 🌊 Slide Panel Toggle Logic
 function handleSlideToggle(addClass) {
   authWrapper.classList.add("disable-interactions");
@@ -45,14 +44,15 @@ function handleSlideToggle(addClass) {
 window.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme");
   const isDark = savedTheme === "dark";
-
+  
   body.classList.toggle("dark-mode", isDark);
   sun.style.display = isDark ? "none" : "inline-block";
   moon.style.display = isDark ? "inline-block" : "none";
-
+  
   loading?.classList.add("hide");
   Err?.classList.add("none");
 });
+// let activeCaptchaId = 0;
 
 // ☀️ Theme Switchers
 sun?.addEventListener("click", () => {
@@ -214,7 +214,17 @@ document.querySelectorAll("form").forEach((formEl) => {
 
       const result = await res.json();
       if (result.err) {
-        hcaptcha.reset(0);
+        let activeCaptchaId;
+        const getCaptchaId = ()=>{
+          if(type==='login'){
+           return activeCaptchaId=1
+          }
+          else{
+           return activeCaptchaId=0
+          }
+        }
+        getCaptchaId()
+        hcaptcha.reset(activeCaptchaId);
         captchaToken = "";
         buttons.forEach((btn) => btn.classList.add("disable"));
         console.log(result)
