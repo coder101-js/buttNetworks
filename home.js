@@ -72,10 +72,7 @@ const submitContactForm = async () => {
   const message = document.getElementById('Message').value.trim();
 
   // basic validation — don’t ghost required fields 😤
-  if (!name || !email || !phone || !message) {
-    alert("Please fill in all fields 🛑");
-    return;
-  }
+
 
   const data = { name, email, phone, message };
 
@@ -91,11 +88,11 @@ const submitContactForm = async () => {
     const response = await res.json();
 
     if (res.ok && response.success) {
-      alert('📨 Message sent successfully!');
+      // alert('📨 Message sent successfully!');
       // Reset the form because we're fancy like that
       ['Name', 'Email', 'Phone', 'Message'].forEach(id => document.getElementById(id).value = '');
     } else {
-      alert('❌ Failed to send message. Try again later.');
+      
     }
   } catch (error) {
     console.error('🚨 Error:', error);
