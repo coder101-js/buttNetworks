@@ -808,6 +808,9 @@ progress{
   }
 
   .contact-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-right: 55px;
     font-size: 30px;
   }
