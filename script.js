@@ -68,7 +68,7 @@ window.addEventListener("DOMContentLoaded", () => {
     callback: onCaptchaSolved,
   });
 
-  console.log("✅ Captcha widgets:", captchaMap);
+    // console.log("✅ Captcha widgets:", captchaMap);
 });
 
 // ☀️ Theme Switchers
@@ -183,7 +183,6 @@ document.querySelectorAll("form input").forEach((input) => {
     }
   });
 });
-console.log("hcaptcha is:", hcaptcha); // should not be undefined
 
 document.querySelectorAll("form").forEach((formEl) => {
   formEl.addEventListener("submit", async (e) => {
@@ -238,7 +237,6 @@ document.querySelectorAll("form").forEach((formEl) => {
       }
       if (result.err) {
         captchaToken = "";
-        console.log(result);
         showError(result.err, 8000, true);
         switch (type) {
           case "signup":
