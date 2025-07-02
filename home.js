@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", () => {
   const sun = document.getElementById("Sun");
   const moon = document.getElementById("Moon");
@@ -93,14 +91,37 @@ const submitContactForm = async () => {
     const response = await res.json();
 
     if (res.ok && response.success) {
-      ["Name", "Email", "Phone", "Message"].forEach(
-        (id) => (document.getElementById(id).value = "")
-      );
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+      });
+      const msg = document.getElementById("contactStatus");
+      msg.classList.remove("none");
+      msg.classList.add("show");
+      msg.textContent = "Message send Successfully";
+      setTimeout(() => {
+        msg.classList.add("none");
+        msg.classList.remove("show");
+        msg.textContent = "";
+      }, 7 * 1000);
     } else {
     }
   } catch (error) {
+    const fields = ["Name", "Email", "Phone", "Message"];
+    fields.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+    const msg = document.getElementById("contactStatus");
+    msg.classList.remove("none");
+    msg.classList.add("show-err");
+    msg.textContent = "Error while sending Form";
+    setTimeout(() => {
+      msg.classList.add("none");
+      msg.classList.remove("show-err");
+      msg.textContent = "";
+    }, 7 * 1000);
     console.error("🚨 Error:", error);
-    alert("⚠️ Server error. Try again later.");
   }
 };
 
