@@ -1,77 +1,74 @@
-// 🌗 Theme Toggle Elements
 const sun = document.getElementById("Sun");
 const moon = document.getElementById("Moon");
 const body = document.body;
 
-// 👥 Auth Container
 const authWrapper = document.querySelector(".container.auth-wrapper");
-
-// 📦 Loading + Error Elements
 const loading = document.getElementById("loading");
 const Err = document.getElementById("Err");
 
-// 🔘 Form Toggle Buttons
 const signUpBtn = document.getElementById("signUp");
 const signInBtn = document.getElementById("signIn");
 const mobileLogin = document.getElementById("mobileLogin");
 const mobileSignup = document.getElementById("mobileSignup");
-//forgot link
 const forgotLink = document.getElementById("forgot");
+const submitButtons = document.querySelectorAll(".sign-btn");
 
-const buttons = [
-  document.getElementsByClassName("sign-btn")[0],
-  document.getElementsByClassName("sign-btn")[1],
-];
 let captchaToken = "";
+let captchaWidgets = {};
 
-forgotLink.addEventListener("click", (e) => {
-  window.location.assign("https://buttnetworks.com/forgot");
-});
-// 🌊 Slide Panel Toggle Logic
-function handleSlideToggle(addClass) {
-  authWrapper.classList.add("disable-interactions");
-  if (addClass) {
-    authWrapper.classList.add("right-panel-active");
-  } else {
-    authWrapper.classList.remove("right-panel-active");
-  }
-  setTimeout(() => {
-    authWrapper.classList.remove("disable-interactions");
-  }, 650);
+function onCaptchaSolved(token) {
+  captchaToken = token;
+  Err.classList.add("none");
+  submitButtons.forEach(b => b.classList.remove("disable"));
 }
 
-// 🌅 Restore Saved Theme
-window.addEventListener("DOMContentLoaded", () => {
-  const savedTheme = localStorage.getItem("theme");
-  const isDark = savedTheme === "dark";
+function resetCaptcha(type) {
+  if (captchaWidgets[type]) {
+    hcaptcha.reset(captchaWidgets[type]);
+    captchaToken = "";
+  }
+}
 
+window.addEventListener("DOMContentLoaded", () => {
+  // Theme Setup
+  const isDark = localStorage.getItem("theme") === "dark";
   body.classList.toggle("dark-mode", isDark);
   sun.style.display = isDark ? "none" : "inline-block";
   moon.style.display = isDark ? "inline-block" : "none";
 
-  loading?.classList.add("hide");
-  Err?.classList.add("none");
-});
+  loading.classList.add("hide");
+  Err.classList.add("none");
 
-let captchaMap = {};
-
-window.addEventListener("DOMContentLoaded", () => {
-  const captchaElements = document.querySelectorAll(".h-captcha");
-
-  captchaMap.signup = hcaptcha.render(captchaElements[0], {
+  // Pre-render both hCaptchas
+  captchaWidgets.login = hcaptcha.render("login-captcha", {
     sitekey: "fe6efd1a-9376-4e3a-8380-4b74578ed896",
-    callback: onCaptchaSolved,
+    callback: onCaptchaSolved
   });
 
-  captchaMap.login = hcaptcha.render(captchaElements[1], {
+  captchaWidgets.signup = hcaptcha.render("signup-captcha", {
     sitekey: "fe6efd1a-9376-4e3a-8380-4b74578ed896",
-    callback: onCaptchaSolved,
+    callback: onCaptchaSolved
   });
 
-    // console.log("✅ Captcha widgets:", captchaMap);
+  // Toggle handlers
+  function switchToSignup() {
+    authWrapper.classList.add("right-panel-active");
+    resetCaptcha("signup");
+  }
+
+  function switchToLogin() {
+    authWrapper.classList.remove("right-panel-active");
+    resetCaptcha("login");
+  }
+
+  signUpBtn?.addEventListener("click", switchToSignup);
+  mobileSignup?.addEventListener("click", switchToSignup);
+
+  signInBtn?.addEventListener("click", switchToLogin);
+  mobileLogin?.addEventListener("click", switchToLogin);
 });
 
-// ☀️ Theme Switchers
+// Theme toggle
 sun?.addEventListener("click", () => {
   body.classList.add("dark-mode");
   sun.style.display = "none";
@@ -86,194 +83,96 @@ moon?.addEventListener("click", () => {
   localStorage.setItem("theme", "light");
 });
 
-// 👁️ Toggle Password Visibility
-document.querySelectorAll(".toggle-password").forEach((icon) => {
+// Password Toggle
+document.querySelectorAll(".toggle-password").forEach(icon => {
   icon.addEventListener("click", () => {
-    const input = document.getElementById(icon.dataset.target);
-    if (!input) return;
-
-    const isPassword = input.type === "password";
-    input.type = isPassword ? "text" : "password";
-
-    icon.classList.toggle("fa-eye");
+    const inp = document.getElementById(icon.dataset.target);
+    if (!inp) return;
+    inp.type = inp.type === "password" ? "text" : "password";
     icon.classList.toggle("fa-eye-slash");
   });
 });
-// 👥 Auth Slide Toggle on DOM Load
-window.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("signUp")?.addEventListener("click", () => {
-    authWrapper.classList.add("right-panel-active");
-  });
-  document.getElementById("signIn")?.addEventListener("click", () => {
-    authWrapper.classList.remove("right-panel-active");
-  });
 
-  document.getElementById("mobileSignup")?.addEventListener("click", () => {
-    authWrapper.classList.add("right-panel-active");
-  });
-
-  document.getElementById("mobileLogin")?.addEventListener("click", () => {
-    authWrapper.classList.remove("right-panel-active");
-  });
-});
-
-buttons.forEach((btn) => {
-  btn?.addEventListener("click", (e) => {
-    if (captchaToken === "") {
-      e.preventDefault();
-      showError("Solve the captcha first");
-    }
-  });
-});
-
-function onCaptchaSolved(token) {
-  captchaToken = token;
-  buttons.forEach((btn) => {
-    btn.classList.remove("disable");
-  });
-  Err.classList.add("none");
-  Err.innerText = "";
-  return token;
-}
-
-// 🧠 Enable Button if Inputs Filled
-document.querySelectorAll("form input").forEach((input) => {
-  input.addEventListener("input", () => {
-    const form = input.closest("form");
-    const email = form.querySelector("input[type='email']");
-    const pass = form.querySelector("input[type='password']");
-
-    if (email?.value.trim() && pass?.value.trim()) {
-      buttons.forEach((btn) => {
-        btn.classList.remove("disable");
-      });
-      Err.classList.add("none");
-      Err.innerText = "";
-    }
-  });
-});
-let isStickyError = false;
-
-function showError(message, duration = 4000, sticky = false) {
-  isStickyError = sticky;
-
+// Error system
+let hideTimer;
+function showError(msg, duration = 3000, sticky = false) {
+  Err.textContent = msg;
   Err.classList.remove("none");
-  Err.style.opacity = 1;
-  Err.style.animation = "none";
-  void Err.offsetHeight;
-  Err.style.animation = `fadeInSlide ${duration}ms ease-in-out forwards`;
-  Err.innerText = message;
-
-  if (Err.hideTimeout) clearTimeout(Err.hideTimeout);
+  clearTimeout(hideTimer);
 
   if (!sticky) {
-    Err.hideTimeout = setTimeout(() => {
-      Err.style.opacity = 0;
+    hideTimer = setTimeout(() => {
       Err.classList.add("none");
-      Err.innerText = "";
+      Err.textContent = "";
     }, duration);
   }
 }
-document.querySelectorAll("form input").forEach((input) => {
-  input.addEventListener("input", () => {
-    if (!isStickyError) {
-      Err.classList.add("none");
-      Err.innerText = "";
-      Err.style.opacity = 0;
+
+// Forgot link
+forgotLink?.addEventListener("click", () => {
+  window.location.href = "https://buttnetworks.com/forgot";
+});
+
+// Validate before submit
+submitButtons.forEach(btn => {
+  btn.addEventListener("click", e => {
+    if (!captchaToken) {
+      e.preventDefault();
+      showError("Solve the captcha first!");
     }
   });
 });
 
-document.querySelectorAll("form").forEach((formEl) => {
-  formEl.addEventListener("submit", async (e) => {
+// Form submission
+document.querySelectorAll("form").forEach(formEl => {
+  formEl.addEventListener("submit", async e => {
     e.preventDefault();
-    const signUpInput = document.getElementsByClassName("signupInput");
-    const loginInput = document.getElementsByClassName("loginInput");
-    const formData = new FormData(formEl);
-    const email = formData.get("email")?.trim();
-    const password = formData.get("password")?.trim();
-    const username = formData.get("username")?.trim();
-    const token = captchaToken;
-    const btn = formEl.querySelector("button[type='submit']");
 
-    if (!email || !password) {
-      showError("Fill email and password", 3000);
-      return;
-    }
+    const data = new FormData(formEl);
+    const email = data.get("email")?.trim();
+    const password = data.get("password")?.trim();
+    const username = data.get("username")?.trim();
+    const isSignup = authWrapper.classList.contains("right-panel-active");
 
-    if (!token || btn?.classList.contains("disable")) {
-      showError("Solve the captcha first!", 3000);
-      return;
-    }
+    if (!email || !password) return showError("Fill email & password");
 
-    const type = authWrapper.classList.contains("right-panel-active")
-      ? "signup"
-      : "login";
+    if (!captchaToken) return showError("Solve captcha first!");
 
     const payload = {
       email,
       password,
       username,
-      captchaToken: token,
-      type,
+      captchaToken,
+      type: isSignup ? "signup" : "login"
     };
 
     try {
       loading.classList.remove("hide");
       loading.classList.add("loading");
+
       const res = await fetch(`${CONFIG.API_URL}/gateway`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify(payload),
+        body: JSON.stringify(payload)
       });
 
       const result = await res.json();
-      const activeForm = authWrapper.classList.contains("right-panel-active")
-        ? "signup"
-        : "login";
-      if (captchaMap[activeForm] !== undefined) {
-        console.log(captchaMap)
-        hcaptcha.reset(captchaMap[activeForm]);
-      }
-      if (result.err) {
-        captchaToken = "";
-        showError(result.err, 8000, true);
-        switch (type) {
-          case "signup":
-            Array.from(signUpInput).forEach((elm) => {
-              elm.nextElementSibling.classList.add("redLabel");
-              elm.classList.add("shakeInput");
-            });
-            break;
-          case "login":
-            Array.from(loginInput).forEach((elm) => {
-              elm.nextElementSibling.classList.add("redLabel");
-              elm.classList.add("shakeInput");
-            });
-            break;
+      captchaToken = "";
 
-          default:
-            break;
-        }
-      }
-      if (res.ok && result.redirectTo) {
-        loading.classList.remove("hide");
-        loading.classList.add("loading");
+      resetCaptcha(isSignup ? "signup" : "login");
+
+      if (result.err) {
+        showError(result.err, 5000, true);
+      } else if (res.ok && result.redirectTo) {
         window.location.assign(result.redirectTo);
       }
     } catch (err) {
-      const activeForm = authWrapper.classList.contains("right-panel-active")
-        ? "signup"
-        : "login";
-      if (captchaMap[activeForm] !== undefined) {
-        hcaptcha.reset(captchaMap[activeForm]);
-      }
-      console.log(err);
-      console.error("❌ Form Error:", err);
+      console.error(err);
+      showError("Network error, try again.");
     } finally {
-      loading.classList.remove("loading");
       loading.classList.add("hide");
+      loading.classList.remove("loading");
     }
   });
 });

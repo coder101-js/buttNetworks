@@ -6,64 +6,51 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Butt Networks || Login/Sign Up</title>
-  <meta name="description"
-    content="Join Butt Networks — a sleek, secure login & signup portal. Powered by clean UI, fast load times, and smart auth." />
-  <meta name="keywords"
-    content="Butt Networks, Login, Sign Up, Auth Portal, User Authentication, Web App, Secure Login" />
+  <meta name="description" content="Join Butt Networks — a sleek, secure login & signup portal. Powered by clean UI, fast load times, and smart auth." />
+  <meta name="keywords" content="Butt Networks, Login, Sign Up, Auth Portal, User Authentication, Web App, Secure Login" />
   <meta name="author" content="Wahb Amir" />
   <meta name="robots" content="index, follow" />
   <meta name="theme-color" content="#009fff" />
   <link rel="shortcut icon" href="./butt.webp" type="image/x-icon">
-  <!-- 🧩 Open Graph (Facebook, LinkedIn, etc.) -->
+  <!-- Open Graph -->
   <meta property="og:title" content="Butt Networks || Login/Sign Up" />
   <meta property="og:description" content="A responsive and modern auth interface for fast and secure user access." />
   <meta property="og:image" content="https://buttnetworks.com/butt.webp" />
-  <meta property="og:url" content="https://buttnetworksom" />
+  <meta property="og:url" content="https://buttnetworks.com" />
   <meta property="og:type" content="website" />
-
-  <!-- 🐦 Twitter Card -->
+  <!-- Twitter Card -->
   <meta name="twitter:title" content="Butt Networks || Login/Sign Up" />
   <meta name="twitter:description" content="A sleek, fast, mobile-first login & signup system by Butt Networks." />
 
-  <!-- 🚀 Performance Boost -->
-
-  <link rel="icon" href="butt.png" type="image/webp" fetchpriority="high" />
-
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
-
-  <!-- 💅 Styles -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="style.css" /> -->
+  <!-- Styles & Icons -->
   <link rel="preload" href="style.css?v=2.2" as="style" />
-<link rel="stylesheet" href="style.css?v=2.2" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="style.css?v=2.2" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'">
 
+  <!-- hCaptcha API -->
   <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 
+  <!-- Dev Tools -->
   <script src="config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-<script>eruda.init();</script>
+  <script>eruda.init();</script>
 </head>
 
 <body>
   <div id="logBox" style="position:fixed;bottom:10px;left:10px;background:#000;color:#0f0;padding:10px;z-index:9999;max-width:300px;max-height:200px;overflow:auto;font-family:monospace;"></div>
-
-<script>
-  const logDiv = document.getElementById('logBox');
-  function log(msg) {
-    console.log(msg);
-    logDiv.innerHTML += msg + "<br>";
-  }
-</script>
+  <script>
+    const logDiv = document.getElementById('logBox');
+    function log(msg) {
+      console.log(msg);
+      logDiv.innerHTML += msg + "<br>";
+    }
+  </script>
 
   <div id="loading" class="hide"></div>
+
   <div class="signup-navbar">
     <div class="brand">
-      <img loading="lazy" src="butt.webp" alt="" rel="preload" decoding="async" fetchpriority="high">
+      <img loading="lazy" src="butt.webp" alt="" decoding="async" fetchpriority="high">
       <span class="signup-i">Butt Networks</span>
     </div>
     <div>
@@ -71,15 +58,15 @@
       <i class="fas fa-moon" id="Moon" style="display: none;"></i>
     </div>
   </div>
-  <!-- <img class="not-found-image" alt="a sad computer" src="https://assets.mongodb-cdn.com/mms/static/images/sadface.gif"> -->
-  <!-- 🔁 Auth Panel -->
+
+  <!-- Auth Panel -->
   <div class="container auth-wrapper" id="container">
 
-    <!-- ✍️ Sign Up -->
+    <!-- Sign Up -->
     <div class="form-container sign-up-container">
       <form class="sign-form" method="POST">
         <h1>Sign Up</h1>
-        <div class="floating-input ">
+        <div class="floating-input">
           <input type="email" id="signup-email" name="email" placeholder=" " required class="signupInput" />
           <label for="signup-email" class="label">Email</label>
         </div>
@@ -87,20 +74,20 @@
           <input type="text" id="signup-username" name="username" placeholder=" " required class="signupInput" />
           <label for="signup-username" class="label">Username</label>
         </div>
-        <div class="floating-input ">
+        <div class="floating-input">
           <input type="password" id="signup-pass" name="password" placeholder=" " required class="signupInput" />
           <label for="signup-pass" class="label">Password</label>
           <i class="fas fa-eye toggle-password" data-target="signup-pass"></i>
         </div>
-        <div class="h-captcha" data-sitekey="fe6efd1a-9376-4e3a-8380-4b74578ed896" data-callback="onCaptchaSolved">
-        </div>
+        <!-- Shared captcha container -->
+        <div id="signup-captcha"></div>
         <button type="submit" class="sign-btn">Sign Up</button>
       </form>
     </div>
 
-    <!-- 🔐 Sign In -->
+    <!-- Sign In -->
     <div class="form-container sign-in-container">
-      <form class="sign-form" method="POST" >
+      <form class="sign-form" method="POST">
         <h1>Login</h1>
         <div class="floating-input first">
           <input type="email" id="login-email" name="email" placeholder=" " required class="loginInput" />
@@ -111,14 +98,14 @@
           <label for="login-pass" class="label">Password</label>
           <i class="fas fa-eye toggle-password" data-target="login-pass"></i>
         </div>
-        <div class="h-captcha" data-sitekey="fe6efd1a-9376-4e3a-8380-4b74578ed896" data-callback="onCaptchaSolved">
-        </div>
+        <!-- Shared captcha container -->
+        <div id="login-captcha"></div>
         <p><a id="forgot">Forgot your password?</a></p>
         <button type="submit" class="sign-btn">Login</button>
       </form>
     </div>
 
-    <!-- 🧭 Overlay Panels -->
+    <!-- Overlay Panels -->
     <div class="overlay-container">
       <div class="overlay">
         <div class="overlay-panel overlay-left">
@@ -134,14 +121,18 @@
       </div>
     </div>
 
-    <!-- Optional: Error + Loading UI -->
+    <!-- Error UI -->
     <div class="Err none" id="Err"></div>
-    <div class="mobile-toggle">
-      <button id="mobileLogin">Login</button>
-      <button id="mobileSignup">Sign Up</button>
-    </div>
-    <script src="script.js?v=2.2" defer></script>
+  </div> <!-- Close #container -->
 
+  <!-- Mobile Toggle -->
+  <div class="mobile-toggle">
+    <button id="mobileLogin">Login</button>
+    <button id="mobileSignup">Sign Up</button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js?v=2.2" defer></script>
 </body>
 
 </html>
