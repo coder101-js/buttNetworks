@@ -1,3 +1,4 @@
+// 🌗 Theme Toggle Elements
 const sun = document.getElementById("Sun");
 const moon = document.getElementById("Moon");
 const body = document.body;
@@ -15,6 +16,16 @@ const submitButtons = document.querySelectorAll(".sign-btn");
 
 let captchaToken = "";
 let captchaWidgets = {};
+
+// 🔄 Wait for hCaptcha script to load before rendering
+function waitForHCaptcha(callback) {
+  const interval = setInterval(() => {
+    if (window.hcaptcha) {
+      clearInterval(interval);
+      callback();
+    }
+  }, 100);
+}
 
 function onCaptchaSolved(token) {
   captchaToken = token;
@@ -39,27 +50,29 @@ window.addEventListener("DOMContentLoaded", () => {
   loading.classList.add("hide");
   Err.classList.add("none");
 
-  // Pre-render both hCaptchas
-  captchaWidgets.login = hcaptcha.render("login-captcha", {
-    sitekey: "fe6efd1a-9376-4e3a-8380-4b74578ed896",
-    callback: onCaptchaSolved
-  });
+  // Wait for hCaptcha then pre-render both widgets
+  waitForHCaptcha(() => {
+    captchaWidgets.login = hcaptcha.render("login-captcha", {
+      sitekey: "fe6efd1a-9376-4e3a-8380-4b74578ed896",
+      callback: onCaptchaSolved
+    });
 
-  captchaWidgets.signup = hcaptcha.render("signup-captcha", {
-    sitekey: "fe6efd1a-9376-4e3a-8380-4b74578ed896",
-    callback: onCaptchaSolved
+    captchaWidgets.signup = hcaptcha.render("signup-captcha", {
+      sitekey: "fe6efd1a-9376-4e3a-8380-4b74578ed896",
+      callback: onCaptchaSolved
+    });
   });
 
   // Toggle handlers
-  function switchToSignup() {
+  const switchToSignup = () => {
     authWrapper.classList.add("right-panel-active");
     resetCaptcha("signup");
-  }
+  };
 
-  function switchToLogin() {
+  const switchToLogin = () => {
     authWrapper.classList.remove("right-panel-active");
     resetCaptcha("login");
-  }
+  };
 
   signUpBtn?.addEventListener("click", switchToSignup);
   mobileSignup?.addEventListener("click", switchToSignup);
@@ -135,7 +148,6 @@ document.querySelectorAll("form").forEach(formEl => {
     const isSignup = authWrapper.classList.contains("right-panel-active");
 
     if (!email || !password) return showError("Fill email & password");
-
     if (!captchaToken) return showError("Solve captcha first!");
 
     const payload = {
@@ -159,7 +171,6 @@ document.querySelectorAll("form").forEach(formEl => {
 
       const result = await res.json();
       captchaToken = "";
-
       resetCaptcha(isSignup ? "signup" : "login");
 
       if (result.err) {
