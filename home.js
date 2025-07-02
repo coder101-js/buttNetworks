@@ -92,11 +92,7 @@ const submitContactForm = async () => {
       body: JSON.stringify(body),
     });
 
-    const response = await res.json();
-    console.log("res.ok:", res.ok);
-    console.log("response.success:", response.success);
-
-    if (res.ok && response.success) {
+    if (res.ok ) {
       // ✅ clear inputs
       fields.forEach((id) => {
         const el = document.getElementById(id);
