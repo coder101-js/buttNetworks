@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 🧭 Smooth Scrolling Utility
   function smoothScrollTo(id) {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" ,block:'start'});
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     const target = link.getAttribute("href").slice(1);
@@ -64,13 +64,11 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 });
 
-
-const submitContactForm = async (e) => {
-  const name = document.getElementById('Name').value.trim();
-  const email = document.getElementById('Email').value.trim();
-  const phone = document.getElementById('Phone').value.trim();
-  const message = document.getElementById('Message').value.trim();
-  e.preventDefault()
+const submitContactForm = async () => {
+  const name = document.getElementById("Name").value.trim();
+  const email = document.getElementById("Email").value.trim();
+  const phone = document.getElementById("Phone").value.trim();
+  const message = document.getElementById("Message").value.trim();
   // basic validation — don’t ghost required fields 😤
   if (!name || !email || !phone || !message) {
     return false;
@@ -79,12 +77,12 @@ const submitContactForm = async (e) => {
   const data = { name, email, phone, message };
 
   try {
-    const res = await fetch('/api/contact', {
-      method: 'POST',
+    const res = await fetch("/api/contact", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
 
     const response = await res.json();
@@ -92,12 +90,20 @@ const submitContactForm = async (e) => {
     if (res.ok && response.success) {
       // alert('📨 Message sent successfully!');
       // Reset the form because we're fancy like that
-      ['Name', 'Email', 'Phone', 'Message'].forEach(id => document.getElementById(id).value = '');
+      ["Name", "Email", "Phone", "Message"].forEach(
+        (id) => (document.getElementById(id).value = "")
+      );
     } else {
-      
     }
   } catch (error) {
-    console.error('🚨 Error:', error);
-    alert('⚠️ Server error. Try again later.');
+    console.error("🚨 Error:", error);
+    alert("⚠️ Server error. Try again later.");
   }
 };
+
+document
+  .querySelector("form")
+  .addEventListener("submit", async (e) => {
+    e.preventDefault(); // 👈 stops the form from reloading the page
+    await submitContactForm(); // your async logic
+  });
