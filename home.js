@@ -63,3 +63,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   );
 });
+
+
+const submitContactForm = async () => {
+  const name = document.getElementById('Name').value.trim();
+  const email = document.getElementById('Email').value.trim();
+  const phone = document.getElementById('Phone').value.trim();
+  const message = document.getElementById('Message').value.trim();
+
+  // basic validation — don’t ghost required fields 😤
+  if (!name || !email || !phone || !message) {
+    alert("Please fill in all fields 🛑");
+    return;
+  }
+
+  const data = { name, email, phone, message };
+
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    const response = await res.json();
+
+    if (res.ok && response.success) {
+      alert('📨 Message sent successfully!');
+      // Reset the form because we're fancy like that
+      ['Name', 'Email', 'Phone', 'Message'].forEach(id => document.getElementById(id).value = '');
+    } else {
+      alert('❌ Failed to send message. Try again later.');
+    }
+  } catch (error) {
+    console.error('🚨 Error:', error);
+    alert('⚠️ Server error. Try again later.');
+  }
+};
