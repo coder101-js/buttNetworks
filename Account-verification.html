@@ -499,7 +499,9 @@
                                     }, 3 * 1000);
                                 }
                                 else if (data.auth) {
-                                    alert('✅ Verification successful!');
+                                    setTimeout(() => {
+                                        window.location.assign(data.redirectTo);
+                                    },  400);
                                 } else {
                                     alert('❌ Invalid code. Try again.');
                                 }
