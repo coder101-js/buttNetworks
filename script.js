@@ -217,6 +217,7 @@ document.querySelectorAll("form").forEach((formEl) => {
         hcaptcha.reset(0);
         captchaToken = "";
         buttons.forEach((btn) => btn.classList.add("disable"));
+        console.log(result)
         showError(result.err, 8000, true);
         switch (type) {
           case "signup":
