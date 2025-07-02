@@ -1,3 +1,5 @@
+const { type } = require("express/lib/response");
+
 document.addEventListener("DOMContentLoaded", () => {
   const sun = document.getElementById("Sun");
   const moon = document.getElementById("Moon");
@@ -75,21 +77,22 @@ const submitContactForm = async () => {
   }
 
   const data = { name, email, phone, message };
-
+  const body = {
+    data,
+    type: "contact/form",
+  };
   try {
-    const res = await fetch("/api/contact", {
+    const res = await fetch(`${CONFIG.API_URL}/gateway`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(body),
     });
 
     const response = await res.json();
 
     if (res.ok && response.success) {
-      // alert('📨 Message sent successfully!');
-      // Reset the form because we're fancy like that
       ["Name", "Email", "Phone", "Message"].forEach(
         (id) => (document.getElementById(id).value = "")
       );
@@ -101,9 +104,7 @@ const submitContactForm = async () => {
   }
 };
 
-document
-  .querySelector("form")
-  .addEventListener("submit", async (e) => {
-    e.preventDefault(); // 👈 stops the form from reloading the page
-    await submitContactForm(); // your async logic
-  });
+document.querySelector("form").addEventListener("submit", async (e) => {
+  e.preventDefault(); // 👈 stops the form from reloading the page
+  await submitContactForm(); // your async logic
+});
