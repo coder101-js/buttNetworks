@@ -230,6 +230,12 @@ document.querySelectorAll("form").forEach((formEl) => {
       });
 
       const result = await res.json();
+      const activeForm = authWrapper.classList.contains("right-panel-active")
+        ? "signup"
+        : "login";
+      if (captchaMap[activeForm] !== undefined) {
+        hcaptcha.reset(captchaMap[activeForm]);
+      }
       if (result.err) {
         captchaToken = "";
         console.log(result);
