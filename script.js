@@ -166,6 +166,7 @@ document.querySelectorAll("form input").forEach((input) => {
     }
   });
 });
+console.log("hcaptcha is:", hcaptcha); // should not be undefined
 
 document.querySelectorAll("form").forEach((formEl) => {
   formEl.addEventListener("submit", async (e) => {
@@ -213,7 +214,7 @@ document.querySelectorAll("form").forEach((formEl) => {
 
       const result = await res.json();
       if (result.err) {
-        hcaptcha.reset();
+        hcaptcha.reset(0);
         captchaToken = "";
         buttons.forEach((btn) => btn.classList.add("disable"));
         showError(result.err, 8000, true);
@@ -241,7 +242,7 @@ document.querySelectorAll("form").forEach((formEl) => {
         window.location.assign(result.redirectTo);
       }
     } catch (err) {
-      hcaptcha.reset();
+      hcaptcha.reset(0);
       console.log(err);
       console.error("❌ Form Error:", err);
     } finally {
