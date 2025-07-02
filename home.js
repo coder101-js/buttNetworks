@@ -93,6 +93,8 @@ const submitContactForm = async () => {
     });
 
     const response = await res.json();
+    console.log("res.ok:", res.ok);
+    console.log("response.success:", response.success);
 
     if (res.ok && response.success) {
       // ✅ clear inputs
@@ -133,7 +135,6 @@ const submitContactForm = async () => {
     console.error("🚨 Error:", error);
   }
 };
-
 
 document.querySelector("form").addEventListener("submit", async (e) => {
   e.preventDefault(); // 👈 stops the form from reloading the page
