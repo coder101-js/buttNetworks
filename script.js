@@ -10,7 +10,6 @@ const authWrapper = document.querySelector(".container.auth-wrapper");
 const loading = document.getElementById("loading");
 const Err = document.getElementById("Err");
 
-
 // 🔘 Form Toggle Buttons
 const signUpBtn = document.getElementById("signUp");
 const signInBtn = document.getElementById("signIn");
@@ -213,9 +212,11 @@ document.querySelectorAll("form").forEach((formEl) => {
       });
 
       const result = await res.json();
-      hcaptcha.reset();
       if (result.err) {
-        showError(result.err, 8000,true);
+        hcaptcha.reset();
+        captchaToken = "";
+        buttons.forEach((btn) => btn.classList.add("disable"));
+        showError(result.err, 8000, true);
         switch (type) {
           case "signup":
             Array.from(signUpInput).forEach((elm) => {
