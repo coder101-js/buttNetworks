@@ -233,6 +233,7 @@ document.querySelectorAll("form").forEach((formEl) => {
         ? "signup"
         : "login";
       if (captchaMap[activeForm] !== undefined) {
+        console.log(captchaMap)
         hcaptcha.reset(captchaMap[activeForm]);
       }
       if (result.err) {
