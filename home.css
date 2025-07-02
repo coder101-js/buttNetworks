@@ -71,7 +71,7 @@ p {
 .navbar,
 .intro-container,
 .service-cards,
-.contact-container,
+/* .contact-container, */
 .footer-container {
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -713,10 +713,6 @@ progress{
     margin-top: 20px;
   }
 
-  .contact-container {
-    margin-right: 55px;
-    font-size: 30px;
-  }
 
   .contact-form {
     width: 100%;
@@ -807,13 +803,13 @@ progress{
     margin-top: 20px;
   }
 
-  .contact-container {
+  /* .contact-container {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 55px;
     font-size: 30px;
-  }
+  } */
 
   .contact-form {
     width: 100%;
