@@ -63,7 +63,7 @@
 
     <!-- ✍️ Sign Up -->
     <div class="form-container sign-up-container">
-      <form class="sign-form">
+      <form class="sign-form" method="POST" action="javascript:void(0)">
         <h1>Sign Up</h1>
         <div class="floating-input ">
           <input type="email" id="signup-email" name="email" placeholder=" " required class="signupInput" />
@@ -86,7 +86,7 @@
 
     <!-- 🔐 Sign In -->
     <div class="form-container sign-in-container">
-      <form class="sign-form">
+      <form class="sign-form" method="POST" action="javascript:void(0)">
         <h1>Login</h1>
         <div class="floating-input first">
           <input type="email" id="login-email" name="email" placeholder=" " required class="loginInput" />
@@ -99,7 +99,7 @@
         </div>
         <div class="h-captcha" data-sitekey="fe6efd1a-9376-4e3a-8380-4b74578ed896" data-callback="onCaptchaSolved">
         </div>
-        <p><a id="forgot" >Forgot your password?</a></p>
+        <p><a id="forgot">Forgot your password?</a></p>
         <button type="submit" class="sign-btn">Login</button>
       </form>
     </div>
