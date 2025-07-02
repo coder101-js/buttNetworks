@@ -25,7 +25,7 @@ const buttons = [
 let captchaToken = "";
 
 forgotLink.addEventListener("click", (e) => {
-  window.location.assign();
+  window.location.assign('https://buttnetworks.com/forgot');
 });
 // 🌊 Slide Panel Toggle Logic
 function handleSlideToggle(addClass) {
@@ -44,11 +44,11 @@ function handleSlideToggle(addClass) {
 window.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme");
   const isDark = savedTheme === "dark";
-  
+
   body.classList.toggle("dark-mode", isDark);
   sun.style.display = isDark ? "none" : "inline-block";
   moon.style.display = isDark ? "inline-block" : "none";
-  
+
   loading?.classList.add("hide");
   Err?.classList.add("none");
 });
@@ -214,20 +214,24 @@ document.querySelectorAll("form").forEach((formEl) => {
 
       const result = await res.json();
       if (result.err) {
-        let activeCaptchaId;
-        const getCaptchaId = ()=>{
-          if(type==='login'){
-           return activeCaptchaId=1
-          }
-          else{
-           return activeCaptchaId=0
+        const activeCaptchaId = type === "signup" ? 0 : 1;
+
+        if (typeof hcaptcha !== "undefined") {
+          try {
+            hcaptcha.reset(activeCaptchaId);
+            console.log(
+              " Reset hCaptcha for:",
+              type,
+              "| ID:",
+              activeCaptchaId
+            );
+          } catch (err) {
+            console.error(" Failed to reset hCaptcha:", err);
           }
         }
-        getCaptchaId()
-        hcaptcha.reset(activeCaptchaId);
         captchaToken = "";
         buttons.forEach((btn) => btn.classList.add("disable"));
-        console.log(result)
+        console.log(result);
         showError(result.err, 8000, true);
         switch (type) {
           case "signup":
