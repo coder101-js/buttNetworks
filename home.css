@@ -623,6 +623,9 @@ progress{
   width: 90%;
   margin: auto;
 }
+img{
+  background-color: transparent !important;
+}
 
 .footer-container iframe {
   margin-top: 0;
