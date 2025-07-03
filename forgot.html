@@ -7,7 +7,6 @@
     <title>Forgot Password</title>
     <link rel="shortcut icon" href="./butt.webp" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet" />
-    <script src="config.js"></script>
     <style>
         :root {
             --primary-color: #4f9cf9;
@@ -188,7 +187,7 @@
                     email,
                     type: 'password/reset/mail'
                 }
-                const response = await fetch(`${CONFIG.API_URL}/gateway`, {
+                const response = await fetch(`https://api.buttnetworks.com/gateway`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

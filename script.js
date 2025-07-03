@@ -162,7 +162,7 @@ document.querySelectorAll("form").forEach(formEl => {
       loading.classList.remove("hide");
       loading.classList.add("loading");
 
-      const res = await fetch(`${CONFIG.API_URL}/gateway`, {
+      const res = await fetch(`https://api.buttnetworks.com/gateway`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

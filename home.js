@@ -84,7 +84,7 @@ const submitContactForm = async () => {
   };
 
   try {
-    const res = await fetch(`${CONFIG.API_URL}/gateway`, {
+    const res = await fetch(`https://api.buttnetworks.com/gateway`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Verification</title>
     <link rel="shortcut icon" href="butt.webp" type="image/x-icon">
-    <script src="config.js"></script>
     <style>
         @media (max-width: 480px) {
             .verification-container {
@@ -304,7 +303,6 @@
             }
         }
     </style>
-    <script src="config.js"></script>
 </head>
 
 <body>
@@ -338,7 +336,7 @@
 
             if (!email) {
                 alert("You must sign up first to access this page.");
-                window.location.href = `${CONFIG.LOGIN_URL}`;
+                window.location.href = "https://buttnetworks.com";
             }
             else {
                 const emailDiv = document.querySelector('.email')
@@ -371,7 +369,7 @@
                 seconds = 30;
                 countdownEl.textContent = seconds;
 
-                fetch(`${CONFIG.API_URL}/gateway`, {
+                fetch(`https://api.buttnetworks.com/gateway`, {
                     method: 'POST',
                     headers: { "Content-Type": "application/json" },
                     credentials: "include",
@@ -479,7 +477,7 @@
 
                     if (getCode().length === inputs.length) {
                         showLoading();
-                        fetch(`${CONFIG.API_URL}/gateway`, {
+                        fetch(`https://api.buttnetworks.com/gateway`, {
                             method: 'POST',
                             headers: { "Content-Type": "application/json" },
                             credentials: "include",
