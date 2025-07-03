@@ -111,8 +111,9 @@ const submitContactForm = async () => {
       msg.classList.remove("none");
       msg.classList.add("show");
       msg.textContent = "Message sent successfully! ✅";
-
-
+      loader.classList.add("hidden");
+      
+      
       // After submission
       loader.classList.add("hidden");
       submitBtn.style.display = "block";
@@ -126,12 +127,13 @@ const submitContactForm = async () => {
       }, 7000);
     }
   } catch (error) {
-    // 🛑 Something broke
+    loader.classList.add("hidden");
+    submitBtn.style.display = "block";
     fields.forEach((id) => {
       const el = document.getElementById(id);
       if (el) el.value = "";
     });
-
+    
     const msg = document.getElementById("contactStatus");
     msg.classList.remove("none");
     msg.classList.add("show-err");

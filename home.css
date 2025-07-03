@@ -683,6 +683,10 @@ img {
   animation: spin 0.8s linear infinite;
   margin-top: 15px;
 }
+.hidden{
+  visibility: hidden;
+  display: none;
+}
 
 @keyframes spin {
   to {
