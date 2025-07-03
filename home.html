@@ -2,41 +2,90 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <!-- Primary Meta Tags -->
-  <title>Butt Networks</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Butt Network | Butt Networks – Full-Stack Digital Solutions</title>
   <meta name="description"
-    content="Butt Networks is a full-stack dev squad crafting sleek, scalable web & mobile apps with top-notch UX, performance & security." />
+    content="Butt Network (by Butt Networks) delivers sleek, scalable web & mobile apps with top-notch UX, performance & security. Contact us today!" />
   <meta name="keywords"
-    content="Butt Networks, full-stack development, web apps, mobile apps, responsive design, Node.js, ReactJS" />
-  <meta name="author" content="Butt Networks" />
+    content="Butt Networks, Butt Network, full-stack development, web applications, mobile applications, Node.js, ReactJS, secure login, admin panel" />
+  <meta name="author" content="Wahb Amir – Butt Networks" />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://buttnetworks.com/home" />
+  <link rel="canonical" href="https://buttnetworks.com/" />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://buttnetworks.com/home" />
-  <meta property="og:title" content="Butt Networks – Full-Stack Digital Solutions" />
+  <meta property="og:url" content="https://buttnetworks.com/" />
+  <meta property="og:title" content="Butt Network | Butt Networks – Full-Stack Digital Solutions" />
   <meta property="og:description"
-    content="Butt Networks builds custom web & mobile apps blending robust backends with sleek front-end experiences. Let’s innovate together!" />
-  <meta property="og:image" content="https://www.butt-networks.com/images/og-image.png" />
+    content="Butt Network (by Butt Networks) builds custom web & mobile apps blending robust backends with sleek front-end experiences. Let’s innovate together!" />
+  <meta property="og:image" content="https://buttnetworks.com/images/og-image.png" />
+  <meta property="og:image:alt" content="Butt Networks logo on gradient background" />
 
-  <!-- Twitter -->
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://buttnetworks.com/home" />
-  <meta name="twitter:title" content="Butt Networks – Full-Stack Digital Solutions" />
+  <meta name="twitter:url" content="https://buttnetworks.com/" />
+  <meta name="twitter:title" content="Butt Network | Butt Networks – Full-Stack Digital Solutions" />
   <meta name="twitter:description"
-    content="Butt Networks builds custom web & mobile apps blending robust backends with sleek front-end experiences. Let’s innovate together!" />
-  <meta name="twitter:image" content="https://www.butt-networks.com/images/twitter-image.png" />
+    content="Butt Network (by Butt Networks) delivers sleek, scalable web & mobile apps with top-notch UX, performance & security." />
+  <meta name="twitter:image" content="https://buttnetworks.com/images/twitter-image.png" />
 
-  <!-- Favicon & CSS -->
-  <link rel="shortcut icon" href="./image/butt.ico" type="image/x-icon" />
+  <!-- Favicon & Touch Icons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Preconnect & Preload -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
   <link rel="preload" href="home.css?v=2.6" as="style" />
   <link rel="stylesheet" href="home.css?v=2.6" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Butt Networks",
+  "alternateName": "Butt Network",
+  "url": "https://buttnetworks.com/",
+  "logo": "https://buttnetworks.com/favicon-32x32.png",
+  "description": "Butt Networks is a full-stack dev company crafting sleek, secure web & mobile apps with great UX and performance.",
+  "founder": [
+    {
+      "@type": "Person",
+      "name": "Wahb Amir",
+      "jobTitle": "Full-Stack Developer",
+      "sameAs": [
+        "https://github.com/coder101-js"
+      ]
+    },
+    {
+      "@type": "Person",
+      "name": "Shahnawaz Saddam Butt",
+      "jobTitle": "Front-End Developer",
+      "sameAs": [
+        "https://github.com/shahnawazbutt"
+      ]
+    }
+  ],
+  "sameAs": [
+    "https://github.com/buttnetworks",
+    "https://linkedin.com/company/buttnetworks"
+  ]
+}
+</script>
+
+
+  <!-- Config & hCaptcha (deferred) -->
   <script src="config.js" defer></script>
+  <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 </head>
 
 <body>
@@ -254,7 +303,7 @@
     <input type="email" id="Email" placeholder="Enter your Email" required>
     <input type="text" id="Phone" placeholder="Enter your Phone" required>
     <textarea id="Message" placeholder="Enter your Message" required></textarea>
-  
+
     <!-- Button and Loader Wrapper -->
     <div class="btn-loader-wrapper">
       <button id="submit" class="submit underline-hover" type="submit">
@@ -263,7 +312,7 @@
       <div id="loader" class="loader hidden"></div>
     </div>
   </form>
-  
+
   <!--Contact Form Ends -->
 
   <!--footer stats-->
