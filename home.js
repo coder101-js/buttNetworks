@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  
   // 🧭 Smooth Scrolling Utility
   function smoothScrollTo(id) {
     const el = document.getElementById(id);
@@ -58,15 +59,22 @@ document.addEventListener("DOMContentLoaded", () => {
   ["Contact-btn1", "Contact-btn2", "Contact-btn3", "Contact-btn4"].forEach(
     (id) => {
       document
-        .getElementById(id)
-        ?.addEventListener("click", () => smoothScrollTo("contact"));
+      .getElementById(id)
+      ?.addEventListener("click", () => smoothScrollTo("contact"));
     }
   );
 });
 
 const submitContactForm = async () => {
+  const form = document.getElementById("contactForm");
+  const submitBtn = document.getElementById("submit");
+  const loader = document.getElementById("loader");
+  // Toggle visibility
+  submitBtn.style.display = "none";
+  loader.classList.remove("hidden");
+  
   const fields = ["Name", "Email", "Phone", "Message"]; // ✅ define this early
-
+  
   const name = document.getElementById("Name").value.trim();
   const email = document.getElementById("Email").value.trim();
   const phone = document.getElementById("Phone").value.trim();
@@ -92,7 +100,7 @@ const submitContactForm = async () => {
       body: JSON.stringify(body),
     });
 
-    if (res.ok ) {
+    if (res.ok) {
       // ✅ clear inputs
       fields.forEach((id) => {
         const el = document.getElementById(id);
@@ -104,6 +112,13 @@ const submitContactForm = async () => {
       msg.classList.add("show");
       msg.textContent = "Message sent successfully! ✅";
 
+
+      // After submission
+      loader.classList.add("hidden");
+      submitBtn.style.display = "block";
+
+      // Optionally reset form
+      form.reset();
       setTimeout(() => {
         msg.classList.add("none");
         msg.classList.remove("show");

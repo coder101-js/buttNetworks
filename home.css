@@ -231,10 +231,9 @@ textarea {
   transition-delay: 0.8s;
 }
 
-
 .service-cards:hover {
   transform: scale(1.03);
-  box-shadow: 0px 0px 12px 6px  rgba(0, 255, 255, 0.3);
+  box-shadow: 0px 0px 12px 6px rgba(0, 255, 255, 0.3);
 }
 
 /* Floating animation */
@@ -253,7 +252,7 @@ textarea {
   max-width: 300px;
   padding: 20px;
   margin-top: 20px;
-  background: rgb(25 107 192 / 90%); 
+  background: rgb(25 107 192 / 90%);
   /* background-color: transparent; */
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -363,7 +362,7 @@ textarea {
   transition: transform 0.4s ease, box-shadow 0.4s ease;
   box-shadow: 0 0 20px rgba(0, 255, 255, 0.05),
     inset 0 0 8px rgba(0, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   color: #fff;
 }
 
@@ -488,7 +487,7 @@ textarea {
 }
 
 .big {
-  scale: 1.7 !important; 
+  scale: 1.7 !important;
 }
 .skills h3 {
   color: var(--link-color);
@@ -616,14 +615,14 @@ textarea:focus {
   margin: auto;
   width: 90vw;
 }
-.media{
+.media {
   gap: 2rem;
 }
-progress{
+progress {
   width: 90%;
   margin: auto;
 }
-img{
+img {
   background-color: transparent !important;
 }
 
@@ -636,11 +635,11 @@ img{
   margin-top: 10px;
   font-size: 20px;
 }
-.none{
+.none {
   visibility: hidden;
   height: 1.5rem;
 }
-.show{
+.show {
   color: white;
   background-color: green;
   padding: 3px;
@@ -650,7 +649,41 @@ img{
   display: block;
   margin: auto;
 }
-.show-err{
+/* Hide by default */
+.hidden {
+  display: none;
+}
+
+/* Loader Spinner */
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #00bcd4; /* Cyan spinner */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Flex layout for button/loader */
+.btn-loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 40px;
+}
+
+.show-err {
   color: white;
   background-color: rgb(237, 37, 37);
   padding: 3px;
@@ -739,7 +772,6 @@ img{
     margin-top: 20px;
   }
 
-
   input,
   textarea,
   .submit {
@@ -824,7 +856,6 @@ img{
     margin-top: 20px;
   }
 
-
   input {
     width: 100%;
     margin-top: 10px;
@@ -840,4 +871,3 @@ img{
     font-size: 15px;
   }
 }
-
